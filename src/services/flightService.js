@@ -40,7 +40,7 @@ export const fetchFlightSearchDestinations = async (query) => {
 export const fetchFlights = async (fromId, toId, departDate) => {
   if (!fromId || !toId || !departDate) throw new Error('fromId, toId, and departDate are required.');
 
-  const url = `https://booking-com15.p.rapidapi.com/api/v1/flights/searchFlights?fromId=${fromId}&toId=${toId}&departDate=${departDate}&pageNo=1&adults=1&children=0&sort=BEST&cabinClass=ECONOMY&currency_code=AED`;
+  const url = `https://${process.env.RAPIDAPI_HOST}/api/v1/flights/searchFlights?fromId=${fromId}&toId=${toId}&departDate=${departDate}&pageNo=1&adults=1&children=0&sort=BEST&cabinClass=ECONOMY&currency_code=AED`;
   const options = {
     method: 'GET',
     headers: {

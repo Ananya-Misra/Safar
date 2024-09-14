@@ -9,7 +9,7 @@ export const fetchStaySuggestions = async (query) => {
     throw new Error("Query parameter is required.");
   }
 
-  const url = `https://booking-com18.p.rapidapi.com/stays/auto-complete?query=${encodeURIComponent(
+  const url = `https://${process.env.RAPIDAPI_HOST}/stays/auto-complete?query=${encodeURIComponent(
     query
   )}`;
   const options = {
@@ -41,7 +41,7 @@ export const fetchStaysByLocationId = async (
       "locationId, checkinDate, and checkoutDate parameters are required."
     );
   }
-  const url = `https://booking-com18.p.rapidapi.com/stays/search?locationId=${encodeURIComponent(
+  const url = `https://${process.env.RAPIDAPI_HOST}/stays/search?locationId=${encodeURIComponent(
     locationId
   )}&checkinDate=${checkinDate}&checkoutDate=${checkoutDate}&units=metric&temperature=c`;
 

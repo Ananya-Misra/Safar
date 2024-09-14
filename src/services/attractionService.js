@@ -8,9 +8,10 @@ dotenv.config();
 export const fetchAttractionSuggestions = async (query) => {
   if (!query) throw new Error("Query parameter is required.");
 
-  const url = `https://booking-com18.p.rapidapi.com/attraction/auto-complete?query=${encodeURIComponent(
+  const url = `https://${process.env.RAPIDAPI_HOST}/attraction/auto-complete?query=${encodeURIComponent(
     query
   )}`;
+
   const options = {
     method: "GET",
     headers: {
@@ -28,7 +29,7 @@ export const fetchAttractionSuggestions = async (query) => {
 export const fetchAttractionsByDestinationId = async (destinationId) => {
   if (!destinationId) throw new Error("destinationId parameter is required.");
 
-  const url = `https://booking-com18.p.rapidapi.com/attraction/search?id=${destinationId}`;
+  const url = `https://${process.env.RAPIDAPI_HOST}/attraction/search?id=${destinationId}`;
   const options = {
     method: "GET",
     headers: {

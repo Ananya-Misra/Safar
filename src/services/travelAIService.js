@@ -142,5 +142,3 @@ export async function liveLikeLocal(location) {
 
   return localGuide;
 }
-
-// console.log(await liveLikeLocal('zero valley'));

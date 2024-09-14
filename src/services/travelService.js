@@ -17,7 +17,6 @@ export const getCompleteTravelPlan = async (start, destination, budget, days) =>
     // Fetch attraction suggestions
     const attractionId = await fetchAttractionSuggestions(destination);
     const attractionList = await fetchAttractionsByDestinationId(attractionId);
-
     // Fetch stay suggestions
     const bookingsId = await fetchStaySuggestions(destination);
     

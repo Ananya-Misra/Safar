@@ -15,6 +15,8 @@ export const getTravelRoadmapController = async (req, res) => {
       budget,
       days
     );
+
+    
     res.json({ success: true, ...roadmapData });
   } catch (error) {
     res.status(400).json({ success: false, message: error.message });
