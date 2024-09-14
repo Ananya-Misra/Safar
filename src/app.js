@@ -19,6 +19,8 @@ app.use('/api/bookings', bookingRoutes);
 
 app.use('/api/attractions', attractionRoutes);
 
+app.use('/api/bookings', attractionRoutes);
+
 // Start the server
 const PORT = process.env.PORT || 3000;
 app.listen(PORT, () => {

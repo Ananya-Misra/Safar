@@ -1,12 +1,12 @@
 import express from 'express';
-import * as bookingController from '../controllers/bookingController.js'; // Ensure you have the .js extension
+import { getStaySuggestions, searchStaysByLocationId } from '../controllers/bookingController.js';
 
 const router = express.Router();
 
-// Route to get auto-complete suggestions
-router.get('/autocomplete', bookingController.getAutoComplete);
+// Route for fetching auto-complete suggestions
+router.get('/autocomplete', getStaySuggestions);
 
-// Route to search by locationId
-router.get('/search/:locationId', bookingController.searchByLocationId);
+// Route for searching stays by LocationID
+router.get('/search/:locationId', searchStaysByLocationId);
 
-export default router; // Use export default to export the router
+export default router;
