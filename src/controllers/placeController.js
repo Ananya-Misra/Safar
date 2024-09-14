@@ -1,4 +1,5 @@
 import { getNearbyPlaces, getTravelRoadmap } from '../services/travelAi.js';
+import {fetchAttractionSuggestions, fetchAttractionsByDestinationId} from "../services/attractionService.js"
 
 /**
  * Controller function to get nearby places
@@ -33,6 +34,11 @@ export const getTravelRoadmapController = async (req, res) => {
   }
 
   try {
+    const id = await fetchAttractionSuggestions(destination);
+    console.log("the id for destination"+id);
+    const destinationList= await fetchAttractionsByDestinationId(id);
+    console.log(JSON.stringify(destinationList, null, 2));
+
     const roadmap = await getTravelRoadmap(start, destination, budget, days);
     res.json({ success: true, roadmap });
   } catch (error) {
