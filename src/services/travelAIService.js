@@ -12,6 +12,7 @@ const model = new ChatOpenAI({
   temperature: 0.7, // Adjust for creativity if needed
 });
 
+
 /**
  * Function to get nearby places based on the given location name.
  * The response is formatted as an array of objects with details like
@@ -21,10 +22,12 @@ const model = new ChatOpenAI({
  * @returns {Promise<Array>} - A Promise that resolves to an array of location objects
  */
 export async function getNearbyPlaces(location) {
+  // Define the query to get nearby places based on the location
   const query = `Provide a list of tourist attractions near ${location}. 
   For each place, include the name, estimated expense, 
   time required to visit, and the distance from any specific point of ${location} in kilometers. Provide 8-15 places.`;
 
+  // Send the query to the OpenAI model
   const messages = [
     new SystemMessage("You are a travel assistant."),
     new SystemMessage("You need to provide content in json format data."),
@@ -34,11 +37,13 @@ export async function getNearbyPlaces(location) {
     new SystemMessage('Make sure to return only a JSON array of objects and no extra text or explanation.')
   ];
 
+  // Get the response from the model
   const response = await model.invoke(messages);
   const places = JSON.parse(response.content);
 
   return places;
 }
+
 
 /**
  * Function to get a travel roadmap based on start point, destination, budget, and number of days.
@@ -50,7 +55,8 @@ export async function getNearbyPlaces(location) {
  * @param {number} days - Number of days for the trip
  * @returns {Promise<Array>} - A Promise that resolves to an array of roadmap objects for each day
  */
-export async function getTravelRoadmap(start, destination, budget, days) {
+export async function getTravelRoadmap(start, destination, budget, days, pointOfAttractions = [], hotels = []) {
+    // Define the query to get the travel roadmap
     const query = `Create a detailed travel roadmap for a trip from ${start} to ${destination}. 
     The budget is ${budget} INR and the trip duration is ${days} days. 
     Include the following details for each day:
@@ -60,21 +66,37 @@ export async function getTravelRoadmap(start, destination, budget, days) {
     - Time allocation for each activity
     - Meals or restaurants, if relevant
     Ensure the roadmap is detailed and time-wise for each day.`;
-
+  
+    // Send the query to the OpenAI model
     const messages = [
       new SystemMessage("You are a travel assistant providing a detailed roadmap."),
       new SystemMessage("You need to provide content in json format data."),
       new SystemMessage(`The response will be an array of objects. Each object will represent a day in the trip and have the following keys: 
           day_number, mode_of_travel, accommodation, activities (which includes places to visit, time to spend, meals if applicable), and total_estimated_expense for the day in INR.`),
+      new SystemMessage(`Generate data in followin format: [
+        "day_number": ---,
+        "mode_of_transportation": ---,
+        "accommodation": ---,
+        "activities": [
+            {
+                "activity": ---,
+                "time": ---,
+            }
+        ],
+        "total_estimated_expense": ---,
+      ]`),
       new HumanMessage(query),
+      new SystemMessage(`You can take these point of attractions for refrence : ${pointOfAttractions.join(', ')}`),
+      new SystemMessage(`Take refrence of hotels  ${JSON.stringify(hotels)}`),
       new SystemMessage('Make sure to return only a JSON array of objects and no extra text or explanation.')
     ];
-
+    // Get the response from the model
     const response = await model.invoke(messages);
     const travelRoadmap = JSON.parse(response.content);
-
+  
     return travelRoadmap;
-}
+  }
+
 
 /**
  * Function to provide suggestions on how to live like a local based on the given location.
@@ -120,3 +142,5 @@ export async function liveLikeLocal(location) {
 
   return localGuide;
 }
+
+// console.log(await liveLikeLocal('zero valley'));

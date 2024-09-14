@@ -16,11 +16,8 @@ export const getCompleteTravelPlan = async (start, destination, budget, days) =>
   try {
     // Fetch attraction suggestions
     const attractionId = await fetchAttractionSuggestions(destination);
-    console.log("Attraction ID: ", attractionId);
-    
     const attractionList = await fetchAttractionsByDestinationId(attractionId);
-    console.log("Attraction List: ", JSON.stringify(attractionList, null, 2));
-    
+
     // Fetch stay suggestions
     const bookingsId = await fetchStaySuggestions(destination);
     
@@ -35,10 +32,9 @@ export const getCompleteTravelPlan = async (start, destination, budget, days) =>
   
     // Fetch stays based on the location ID and dates
     const hotelList = await fetchStaysByLocationId(bookingsId, formattedCheckIn, formattedCheckout);
-    console.log("Hotel List: ", JSON.stringify(hotelList, null, 2));
-    
+
     // Get travel roadmap
-    const roadmap = await getTravelRoadmap(start, destination, budget, days);
+    const roadmap = await getTravelRoadmap(start, destination, budget, days, attractionList, hotelList);
     
     // Return all the combined data
     return { roadmap, hotelList, attractionList };

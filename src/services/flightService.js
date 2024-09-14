@@ -1,4 +1,9 @@
 import fetch from 'node-fetch';
+// Import dotenv
+import dotenv from 'dotenv';
+
+// Load environment variables from .env file
+dotenv.config();
 
 /**
  * Fetch flight search destinations based on a query

@@ -5,7 +5,6 @@ const API_KEY = process.env.RAPIDAPI_KEY; // Store your API key in .env for secu
 
 export const makeApiRequest = async (path) => {
   const url = `https://booking-com18.p.rapidapi.com/${path}`;
-  console.log("Making API request to:", url); // Log the path
   const options = {
     method: "GET",
     headers: {
@@ -23,7 +22,6 @@ export const makeApiRequest = async (path) => {
     }
 
     const result = await response.json(); // Parse response as JSON
-    console.log(result);
     return result; // Return the parsed JSON
   } catch (error) {
     console.error(error);
@@ -34,7 +32,6 @@ export const makeApiRequest = async (path) => {
 export const makeApiRequest1 = async () => {
   const url =
     "https://booking-com18.p.rapidapi.com/stays/search?locationId=eyJjaXR5X25hbWUiOiJOZXcgWW9yayIsImNvdW50cnkiOiJVbml0ZWQgU3RhdGVzIiwiZGVzdF9pZCI6IjIwMDg4MzI1IiwiZGVzdF90eXBlIjoiY2l0eSJ9&checkinDate=2024-09-17&checkoutDate=2024-09-26&units=metric&temperature=c";
-  console.log("Making API request to:", url); // Log the path
   const options = {
     method: "GET",
     headers: {
@@ -50,9 +47,7 @@ export const makeApiRequest1 = async () => {
     if (!response.ok) {
       throw new Error(`HTTP error! status: ${response.status}`);
     }
-
     const result = await response.json(); // Parse response as JSON
-    console.log(result);
     return result; // Return the parsed JSON
   } catch (error) {
     console.error(error);
