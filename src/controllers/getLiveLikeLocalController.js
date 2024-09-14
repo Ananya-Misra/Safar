@@ -6,7 +6,6 @@ import { liveLikeLocal } from "../services/travelAIService.js";
  * @param {Response} res - Express response object
  */
 export const getLiveLikeLocalController = async (req, res) => {
-    console.log("live like local");
     const { location } = req.body;
     if (!location) {
       return res.status(400).json({ success: false, message: 'Location is required.' });
