@@ -1,4 +1,6 @@
 import { getNearbyPlaces, getTravelRoadmap } from '../services/travelAi.js';
+import { formatDate } from '../utils/FormatDateHelper.js';
+import {fetchStaySuggestions, fetchStaysByLocationId} from "../services/bookingService.js";
 import {fetchAttractionSuggestions, fetchAttractionsByDestinationId} from "../services/attractionService.js"
 import { fetchFlightSearchDestinations,fetchFlights } from '../services/flightService.js';
 
@@ -40,6 +42,23 @@ export const getTravelRoadmapController = async (req, res) => {
     console.log("the id for destination"+id);
     const destinationList= await fetchAttractionsByDestinationId(id);
     console.log(JSON.stringify(destinationList, null, 2));
+
+    const bookingsId= await fetchStaySuggestions(destination);
+    console.log("Booking Ids"+ bookingsId);
+    // // Calculate check-in date 30 days from now
+    const checkinDate = new Date();
+
+    // Calculate checkout date 7 days after check-in
+    const checkoutDate = new Date(checkinDate);
+    checkoutDate.setDate(checkinDate.getDate() + 1);
+
+    // Format the check-in and check-out dates
+    const formattedCheckin = formatDate(checkinDate);
+    const formattedCheckout = formatDate(checkoutDate);
+    console.log(formattedCheckin+ " "+ formattedCheckout);
+    const hotelList= await fetchStaysByLocationId(bookingsId, formattedCheckin, formattedCheckout);
+
+    console.log(JSON.stringify(hotelList, null, 2));
 
     const roadmap = await getTravelRoadmap(start, destination, budget, days);
     res.json({ success: true, roadmap });
