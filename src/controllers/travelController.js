@@ -1,4 +1,4 @@
-import { getCompleteTravelPlan } from '../services/travelService.js';
+import { getCompleteTravelPlan } from "../services/travelService.js";
 
 /**
  * Controller function to get travel roadmap
@@ -9,7 +9,12 @@ export const getTravelRoadmapController = async (req, res) => {
   const { start, destination, budget, days } = req.body;
 
   try {
-    const roadmapData = await getCompleteTravelPlan(start, destination, budget, days);
+    const roadmapData = await getCompleteTravelPlan(
+      start,
+      destination,
+      budget,
+      days
+    );
     res.json({ success: true, ...roadmapData });
   } catch (error) {
     res.status(400).json({ success: false, message: error.message });

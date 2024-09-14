@@ -23,7 +23,6 @@ export const getCompleteTravelPlan = async (start, destination, budget, days) =>
     
     // Fetch stay suggestions
     const bookingsId = await fetchStaySuggestions(destination);
-    console.log("Booking IDs: ", bookingsId);
     
     // Calculate check-in and check-out dates
     const checkInDate = new Date();
@@ -33,9 +32,7 @@ export const getCompleteTravelPlan = async (start, destination, budget, days) =>
     // Format the dates
     const formattedCheckIn = formatDate(checkInDate);
     const formattedCheckout = formatDate(checkoutDate);
-    
-    console.log("Check-in: ", formattedCheckIn, "Check-out: ", formattedCheckout);
-    
+  
     // Fetch stays based on the location ID and dates
     const hotelList = await fetchStaysByLocationId(bookingsId, formattedCheckIn, formattedCheckout);
     console.log("Hotel List: ", JSON.stringify(hotelList, null, 2));
