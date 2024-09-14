@@ -1,18 +1,20 @@
-const express = require('express');
-const mongoose = require('mongoose');
-const routes = require('./routes');
+// server.js
+import express from 'express';
+import dotenv from 'dotenv';
+import placeRoutes from './placeRoutes.js';
+
+// Load environment variables
+dotenv.config();
+
+// Initialize Express
 const app = express();
-
-// Middleware
 app.use(express.json());
-app.use(routes);
 
-// Connect to MongoDB
-mongoose.connect(process.env.MONGODB_URI, { useNewUrlParser: true, useUnifiedTopology: true })
-    .then(() => console.log('MongoDB connected'))
-    .catch(err => console.error(err));
+// Register routes for nearby places and travel roadmap
+app.use('/api/places', placeRoutes);
 
+// Start the server
 const PORT = process.env.PORT || 3000;
 app.listen(PORT, () => {
-    console.log(`Server is running on port ${PORT}`);
+  console.log(`Server running on port ${PORT}`);
 });
