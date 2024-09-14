@@ -1,6 +1,7 @@
-const apiConfig = require('../config/apiConfig');
+import apiConfig from '../config/apiConfig.js'
 
-exports.getAutoComplete = async (req, res) => {
+// Use named exports instead of using `exports`
+export const getAutoComplete = async (req, res) => {
     try {
         const query = req.query.query || 'New York'; // Default to New York if no query is provided
         const data = await apiConfig.makeApiRequest(`/stays/auto-complete?query=${encodeURIComponent(query)}`);
@@ -10,7 +11,7 @@ exports.getAutoComplete = async (req, res) => {
     }
 };
 
-exports.searchByLocationId = async (req, res) => {
+export const searchByLocationId = async (req, res) => {
     try {
         const { locationId } = req.params; // Get locationId from the URL parameters
         const data = await apiConfig.makeApiRequest(`/stays/search?locationId=${locationId}&units=metric&temperature=c`);

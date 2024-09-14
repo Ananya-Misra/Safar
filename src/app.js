@@ -1,6 +1,7 @@
 // server.js
 import express from 'express';
 import dotenv from 'dotenv';
+import bookingRoutes from './routes/bookingRoutes.js'; // Ensure you have the .js extension
 import placeRoutes from './placeRoutes.js';
 
 // Load environment variables
@@ -10,8 +11,10 @@ dotenv.config();
 const app = express();
 app.use(express.json());
 
-// Register routes for nearby places and travel roadmap
+// Routes
 app.use('/api/places', placeRoutes);
+
+app.use('/api/bookings', bookingRoutes);
 
 // Start the server
 const PORT = process.env.PORT || 3000;
