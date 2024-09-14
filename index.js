@@ -2,8 +2,7 @@
 import express from 'express';
 import dotenv from 'dotenv';
 import cors from 'cors';
-// import bookingRoutes from './routes/bookingRoutes.js'; // Ensure you have the .js extension
-import travelRoutes from './routes/travelRoutes.js';
+import travelRoutes from './src/routes/travelRoutes.js';
 
 // Load environment variables
 dotenv.config();
