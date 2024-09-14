@@ -75,3 +75,48 @@ export async function getTravelRoadmap(start, destination, budget, days) {
 
     return travelRoadmap;
 }
+
+/**
+ * Function to provide suggestions on how to live like a local based on the given location.
+ * The response is a detailed guide on local foods, customs, hidden spots, transportation, and
+ * things that locals typically do in their daily life.
+ *
+ * @param {string} location - The name of the location
+ * @returns {Promise<Object>} - A Promise that resolves to an object containing local living tips
+ */
+export async function liveLikeLocal(location) {
+  // Define the query to get tips on living like a local
+  const query = `Provide a detailed guide on how to live like a local in ${location}.
+  Include the following:
+  - Local foods and drinks that people regularly consume
+  - Traditional markets or shops where locals buy their goods
+  - Common modes of transportation that locals use
+  - Hidden or offbeat spots that only locals know about
+  - Local customs or habits (e.g., social behavior, greetings)
+  - Daily routines or activities (e.g., when and where they have breakfast, lunch, or dinner)
+  - Any cultural practices or festivals celebrated in this area.
+  Provide these in a well-structured way so that a traveler can immerse in the local life.`;
+
+  // Send the query to the OpenAI model
+  const messages = [
+    new SystemMessage("You are a travel assistant providing an immersive local experience."),
+    new SystemMessage("You need to provide content in json format data."),
+    new SystemMessage(`The response will be a structured JSON object with the following keys:
+      "local_foods_drinks": [],
+      "local_markets": [],
+      "local_transportation": [],
+      "hidden_spots": [],
+      "local_customs": [],
+      "daily_routines": [],
+      "cultural_practices": []
+    `),
+    new HumanMessage(query),
+    new SystemMessage('Make sure to return only a JSON object with the necessary data and no extra text.'),
+  ];
+
+  // Get the response from the model
+  const response = await model.invoke(messages);
+  const localGuide = JSON.parse(response.content);
+
+  return localGuide;
+}
