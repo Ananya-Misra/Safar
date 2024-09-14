@@ -1,4 +1,4 @@
-import { getNearbyPlaces, getTravelRoadmap } from '../services/travelAi.js';
+import { getNearbyPlaces, getTravelRoadmap ,liveLikeLocal} from '../services/travelAi.js';
 import { formatDate } from '../utils/FormatDateHelper.js';
 import {fetchStaySuggestions, fetchStaysByLocationId} from "../services/bookingService.js";
 import {fetchAttractionSuggestions, fetchAttractionsByDestinationId} from "../services/attractionService.js"
@@ -102,6 +102,21 @@ export const getFlightSearchDestinationsController = async (req, res) => {
     try {
       const flights = await fetchFlights(fromId, toId, departDate);
       res.json({ success: true, flights });
+    } catch (error) {
+      res.status(500).json({ success: false, message: error.message });
+    }
+  };
+
+  export const getliveLikeLocalController = async (req, res) => {
+    const { location } = req.body;
+  
+    if (!location) {
+      return res.status(400).json({ success: false, message: 'Location is required.' });
+    }
+  
+    try {
+      const localPlaces = await liveLikeLocal(location);
+      res.json({ success: true, localPlaces });
     } catch (error) {
       res.status(500).json({ success: false, message: error.message });
     }
