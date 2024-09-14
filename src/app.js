@@ -2,7 +2,7 @@
 import express from 'express';
 import dotenv from 'dotenv';
 import bookingRoutes from './routes/bookingRoutes.js'; // Ensure you have the .js extension
-import placeRoutes from './placeRoutes.js';
+import placeRoutes from './routes/placeRoutes.js';
 
 // Load environment variables
 dotenv.config();

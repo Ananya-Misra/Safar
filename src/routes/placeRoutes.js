@@ -1,12 +1,12 @@
 import express from 'express';
-import { getNearbyPlacesController, getTravelRoadmapController } from './placeController.js';
+import { getNearbyPlacesController, getTravelRoadmapController } from '../controllers/placeController.js';
 
 const router = express.Router();
 
 // Route to get nearby places
-router.post('/nearby-places', getNearbyPlacesController);
+router.get('/nearby-places', getNearbyPlacesController);
 
 // Route to get travel roadmap
-router.post('/travel-roadmap', getTravelRoadmapController);
+router.get('/travel-roadmap', getTravelRoadmapController);
 
 export default router;

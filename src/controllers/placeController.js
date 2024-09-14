@@ -1,4 +1,4 @@
-import { getNearbyPlaces, getTravelRoadmap } from './travelAi.js';
+import { getNearbyPlaces, getTravelRoadmap } from '../services/travelAi.js';
 
 /**
  * Controller function to get nearby places
