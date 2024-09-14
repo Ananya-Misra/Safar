@@ -5,8 +5,7 @@ import {
   getFlightSearchDestinationsController,
   searchFlightsController,
 } from "../controllers/getFlightsController.js";
-import express from 'express';
-import { getNearbyPlacesController, getTravelRoadmapController,getFlightSearchDestinationsController,searchFlightsController ,getliveLikeLocalController} from '../controllers/placeController.js';
+import { getLiveLikeLocalController} from "../controllers/getLiveLikeLocalController.js"
 
 const router = express.Router();
 
@@ -18,10 +17,9 @@ router.get("/travel-roadmap", getTravelRoadmapController);
 
 // Route to get flights for specific destination
 router.get("/searchDestination", getFlightSearchDestinationsController);
-
 router.get("/searchFlights", searchFlightsController);
 
-router.get('/liveLikeLocal',getliveLikeLocalController);
-
+// Route to get native attractions
+router.get('/live-like-local', getLiveLikeLocalController);
 
 export default router;
