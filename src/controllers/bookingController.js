@@ -1,11 +1,13 @@
-import apiConfig from '../config/apiConfig.js'
+import makeApiRequest from '../config/apiConfig.js'
 
 // Use named exports instead of using `exports`
 export const getAutoComplete = async (req, res) => {
     try {
         const query = req.query.query || 'New York'; // Default to New York if no query is provided
-        const data = await apiConfig.makeApiRequest(`/stays/auto-complete?query=${encodeURIComponent(query)}`);
-        res.json(data);
+        console.log("Get Auto Complete starts" + query);
+        const result = await makeApiRequest(query);
+        console.log(JSON.stringify(data)+ "data is this");
+        res.json(result.data[0].id);
     } catch (error) {
         res.status(500).json({ error: 'Failed to fetch data from API', details: error.message });
     }

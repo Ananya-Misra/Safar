@@ -1,40 +1,28 @@
 import https from 'https';
-
+import  fetch from 'node-fetch';
 const API_HOST = 'booking-com18.p.rapidapi.com';
 const API_KEY = process.env.RAPIDAPI_KEY; // Store your API key in .env for security
 
-const makeApiRequest = (path) => {
-    return new Promise((resolve, reject) => {
-        const options = {
-            method: 'GET',
-            hostname: API_HOST,
-            port: null,
-            path: path,
-            headers: {
-                'x-rapidapi-key': API_KEY,
-                'x-rapidapi-host': API_HOST
-            }
-        };
 
-        const req = https.request(options, (res) => {
-            const chunks = [];
-
-            res.on('data', (chunk) => {
-                chunks.push(chunk);
-            });
-
-            res.on('end', () => {
-                const body = Buffer.concat(chunks);
-                resolve(JSON.parse(body.toString()));
-            });
-        });
-
-        req.on('error', (e) => {
-            reject(e);
-        });
-
-        req.end();
-    });
+    
+const makeApiRequest = async(query) => {
+    console.log("api requesy");
+    const url = `https://booking-com18.p.rapidapi.com/stays/auto-complete?query=${query}`;
+    const options = {
+      method: 'GET',
+      headers: {
+        'x-rapidapi-key': process.env.RAPIDAPI_KEY,
+        'x-rapidapi-host': 'booking-com18.p.rapidapi.com'
+      }
+    };
+    
+    try {
+        const response = await fetch(url, options);
+        return await response.text();
+        console.log(result);
+    } catch (error) {
+        console.error(error);
+    }
 };
 
 
