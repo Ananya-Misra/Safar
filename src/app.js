@@ -1,17 +1,18 @@
-const express = require('express');
-const mongoose = require('mongoose');
-const routes = require('./routes');
+import express from 'express';
+import bookingRoutes from './routes/bookingRoutes.js'; // Ensure you have the .js extension
+import dotenv from 'dotenv';
+
+dotenv.config(); // Load environment variables from .env
+
 const app = express();
 
 // Middleware
 app.use(express.json());
-app.use(routes);
 
-// Connect to MongoDB
-mongoose.connect(process.env.MONGODB_URI, { useNewUrlParser: true, useUnifiedTopology: true })
-    .then(() => console.log('MongoDB connected'))
-    .catch(err => console.error(err));
+// Routes
+app.use('/api/bookings', bookingRoutes);
 
+// Start the server
 const PORT = process.env.PORT || 3000;
 app.listen(PORT, () => {
     console.log(`Server is running on port ${PORT}`);

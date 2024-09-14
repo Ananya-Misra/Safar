@@ -1,4 +1,4 @@
-const https = require('https');
+import https from 'https';
 
 const API_HOST = 'booking-com18.p.rapidapi.com';
 const API_KEY = process.env.RAPIDAPI_KEY; // Store your API key in .env for security
@@ -37,6 +37,5 @@ const makeApiRequest = (path) => {
     });
 };
 
-module.exports = {
-    makeApiRequest
-};
+
+export default makeApiRequest; 
