@@ -1,5 +1,6 @@
 import express from 'express';
-import { getNearbyPlacesController, getTravelRoadmapController } from '../controllers/placeController.js';
+import { getTravelRoadmapController } from '../controllers/travelController.js';
+import{getNearbyPlacesController} from "../controllers/nearByPlaceController.js";
 
 const router = express.Router();
 
