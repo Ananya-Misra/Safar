@@ -17,8 +17,8 @@ export const fetchFlightSearchDestinations = async (query) => {
   const options = {
     method: 'GET',
     headers: {
-      'x-rapidapi-key': '611bb635a1msh751fc124ab6b7f1p120b9ejsn1da5de547b0b', // Replace with your actual RapidAPI key
-      'x-rapidapi-host': 'booking-com15.p.rapidapi.com'
+      "x-rapidapi-key": process.env.RAPIDAPI_KEY,
+      "x-rapidapi-host": process.env.RAPIDAPI_HOST
     }
   };
 
@@ -44,8 +44,8 @@ export const fetchFlights = async (fromId, toId, departDate) => {
   const options = {
     method: 'GET',
     headers: {
-      'x-rapidapi-key': '611bb635a1msh751fc124ab6b7f1p120b9ejsn1da5de547b0b', 
-      'x-rapidapi-host': 'booking-com15.p.rapidapi.com'
+      "x-rapidapi-key": process.env.RAPIDAPI_KEY,
+      "x-rapidapi-host": process.env.RAPIDAPI_HOST
     }
   };
 

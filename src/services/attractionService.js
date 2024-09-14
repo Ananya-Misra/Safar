@@ -1,3 +1,9 @@
+// Import dotenv
+import dotenv from 'dotenv';
+
+// Load environment variables from .env file
+dotenv.config();
+
 // Function to get auto-complete suggestions for attractions (service)
 export const fetchAttractionSuggestions = async (query) => {
   if (!query) throw new Error("Query parameter is required.");
@@ -8,8 +14,8 @@ export const fetchAttractionSuggestions = async (query) => {
   const options = {
     method: "GET",
     headers: {
-      "x-rapidapi-key": "611bb635a1msh751fc124ab6b7f1p120b9ejsn1da5de547b0b",
-      "x-rapidapi-host": "booking-com18.p.rapidapi.com",
+        "x-rapidapi-key": process.env.RAPIDAPI_KEY,
+        "x-rapidapi-host": process.env.RAPIDAPI_HOST
     },
   };
 
@@ -26,8 +32,8 @@ export const fetchAttractionsByDestinationId = async (destinationId) => {
   const options = {
     method: "GET",
     headers: {
-      "x-rapidapi-key": "611bb635a1msh751fc124ab6b7f1p120b9ejsn1da5de547b0b",
-      "x-rapidapi-host": "booking-com18.p.rapidapi.com",
+        "x-rapidapi-key": process.env.RAPIDAPI_KEY,
+        "x-rapidapi-host": process.env.RAPIDAPI_HOST
     },
   };
   const response = await fetch(url, options);
